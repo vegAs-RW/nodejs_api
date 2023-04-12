@@ -1,7 +1,8 @@
 const express = require('express');
 const connectDb = require('./config/db');
 const dotenv = require('dotenv').config();
-const port = 5000;
+const port = process.env.APP_PORT
+const hostname = process.env.APP_HOST;
 
 // connexion a la db
 connectDb();
@@ -15,4 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/post", require ("./routes/post.routes"));
 
 // Lancer le serveur
-app.listen(port, () => console.log("server is listening on port " + port))
+
+app.listen(port, hostname, () => {
+    console.log(`Serveur is running on http://${hostname}:${port}`);
+})
